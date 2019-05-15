@@ -381,9 +381,9 @@ accumulateStats maxBufSize = go 0 []
     go !accum chunks s = case Seq.viewl s of
       Seq.EmptyL -> (finalizeChunks chunks, Seq.empty)
       (bs Seq.:< rest) ->
-        let newChuckSize = B.length bs
-            newTotalSize = newChuckSize + accum
-         in if newChuckSize > maxBufSize
+        let newChunkSize = B.length bs
+            newTotalSize = newChunkSize + accum
+         in if newChunkSize > maxBufSize
             then error "Oversized chunk made it into datadog accumulateStats. Please report this as a bug."
             else if newTotalSize > maxBufSize
                  then (finalizeChunks chunks, s)
